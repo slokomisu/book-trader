@@ -16,12 +16,12 @@ router.get("/trades", tradeCtrl.getTrades);
 router.put("/trades/denyTrade/:id", tradeCtrl.denyTrade);
 router.delete("/trades/closeTrade/:id", tradeCtrl.closeTrade);
 
-router
-  .route("/books")
-  .get(bookCtrl.getAllBooks)
-  .post(jwtAuth({ secret: process.env.SECRET }), bookCtrl.addBook)
-  .put(jwtAuth({ secret: process.env.SECRET }), bookCtrl.updateBook)
-  .delete(jwtAuth({ secret: process.env.SECRET }), bookCtrl.deleteBook);
+
+router.get('/books', bookCtrl.getAllBooks);
+router.get('/books/:id', bookCtrl.getBookById);
+router.post('/books', jwtAuth({secret: process.env.SECRET}), bookCtrl.addBook);
+router.put('/books/:id', jwtAuth({secret: process.env.SECRET}), bookCtrl.updateBook);
+router.delete('/books/:id', jwtAuth({secret: process.env.SECRET}), bookCtrl.deleteBook);
 
 router.post("/login", passport.authenticate("local"), authCtrl.login);
 

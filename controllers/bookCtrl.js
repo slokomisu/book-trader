@@ -39,16 +39,16 @@ exports.addBook = async function(req, res) {
 };
 
 exports.updateBook = async function(req, res) {
-  const updatedBook = req.body.book;
+  const bookId = req.params.id;
   try {
-    const bookToUpdate = await Book.findById(updatedBook._id);
+    const bookToUpdate = await Book.findById(bookId);
     if (!bookToUpdate) {
       res.json({
         error: 'BOOK NOT FOUND'
       });
     }
     if (isBookOwner(req.user, bookToUpdate)) {
-      Object.assign(bookToUpdate, updatedBook);
+      Object.assign(bookToUpdate, bookId);
       const savedBook = await bookToUpdate.save();
       res.json({
         message: 'Book updated',
@@ -63,9 +63,9 @@ exports.updateBook = async function(req, res) {
 };
 
 exports.deleteBook = async function(req, res) {
-  const bookToDelete = req.body.book;
+  const bookId = req.params.id;
   try {
-    const foundBook = await Book.findById(bookToDelete._id);
+    const foundBook = await Book.findById(bookId);
     if (isBookOwner(req.user, foundBook)) {
       const deletedBook = await foundBook.remove();
       res.json({
@@ -77,6 +77,22 @@ exports.deleteBook = async function(req, res) {
     res.json({ error });
   }
 };
+
+exports.getBookById = async function(req, res) {
+  const bookId = req.params.id;
+  try {
+    const foundBook = await Book.findById(bookId);
+    if (!foundBook) {
+      return res.json({error: 'BOOK_NOT_FOUND'});
+    }
+    res.json({
+      message: 'Book found',
+      book: foundBook
+    });
+  } catch (error) {
+    
+  }
+}
 
 function isBookOwner(user, book) {
   return book.owner.toString() === user.id;
