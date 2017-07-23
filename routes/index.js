@@ -13,18 +13,12 @@ const tradeCtrl = require('../controllers/tradeCtrl');
 require('dotenv').config();
 
 
-router.get('/:username/books', (req, res) => {
-    User.findByUsername(req.params.username)
-      .populate('books')
-      .exec()
-      .then(foundUser => {
-        res.json({books: foundUser.books})
-      })
-});
+router.get('/:userId/books', bookCtrl.getBooksForUser);
 
 router.use('/trades', jwtAuth({secret: process.env.SECRET}));
 router.post('/trades/createTrade', tradeCtrl.createTrade)
 router.get('/trades/acceptTrade/:id', tradeCtrl.acceptTrade)
+router.get('/trades', tradeCtrl.getTrades);
 // router.put('/trades/denyTrade/:id', tradeCtrl.denyTrade);
 // router.delete('/trades/closeTrade/:id', tradeCtrl.closeTrade);
 

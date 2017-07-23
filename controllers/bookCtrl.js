@@ -83,3 +83,12 @@ exports.deleteBook = async function (req, res) {
 function isBookOwner(user, book) {
   return book.owner.toString() === user.id;
 }
+
+exports.getBooksForUser = async function (req, res) {
+  try {
+    const books = Book.find({owner: req.params.id})
+    res.json(books);
+  } catch (error) {
+    res.json(error);
+  }
+}

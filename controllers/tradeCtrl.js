@@ -59,3 +59,16 @@ exports.acceptTrade = async function(req, res) {
   }
 
 }
+
+exports.getTrades = async function(req, res) {
+  try {
+    const receivedTrades = await Trade.find({receiver: req.user.id});
+    const sentTrades = await Trade.find({sender: req.user.id});
+    res.json({
+      sentTrades,
+      receivedTrades
+    });
+  } catch (error) {
+    res.json(error);
+  }
+}
