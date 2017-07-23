@@ -7,7 +7,7 @@ exports.getAllBooks = async function (req, res) {
   try {
     let books = await Book.find({})
     res.json({
-      books: books
+      books
     });
   } catch (error) {
     res.json(error);

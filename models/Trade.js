@@ -15,8 +15,14 @@ const tradeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  senderBooks: [{type: mongoose.Schema.Types.ObjectId, ref: 'Book'}],
-  receiverBooks: [{type: mongoose.Schema.Types.ObjectId, ref: 'Book'}],
+  requestedBook: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book'
+  },
+  exchangeBook: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book'
+  },
   status: {
     type: String,
     enum: ['OPEN', 'ACCEPTED', 'DENIED'],

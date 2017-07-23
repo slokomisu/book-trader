@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 
 const bookCtrl = require('../controllers/bookCtrl');
 const authCtrl = require('../controllers/authCtrl');
+const tradeCtrl = require('../controllers/tradeCtrl');
 require('dotenv').config();
 
 
@@ -21,7 +22,11 @@ router.get('/:username/books', (req, res) => {
       })
 });
 
-router.use('/trades', jwtAuth({secret: process.env.SECRET}), require('./trades.js'));
+router.use('/trades', jwtAuth({secret: process.env.SECRET}));
+router.post('/trades/createTrade', tradeCtrl.createTrade)
+router.get('/trades/acceptTrade/:id', tradeCtrl.acceptTrade)
+// router.put('/trades/denyTrade/:id', tradeCtrl.denyTrade);
+// router.delete('/trades/closeTrade/:id', tradeCtrl.closeTrade);
 
 
 router.route('/books')

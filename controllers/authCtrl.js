@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 exports.login = function(req, res) {
-  const { user: { _id, username, books } } = req.user;
+  const user = req.user;
+  const { username, books, _id } = user;
   const payload = {
     id: _id,
     username,

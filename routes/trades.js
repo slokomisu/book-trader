@@ -5,9 +5,7 @@ const Trade = require('../models/Trade');
 const jwtAuth = require('express-jwt')
 
 
-router.get('/', (req, res) => {
-  res.json('foo')
-})
+
 
 router.post('/', (req, res) => {
   const senderBooks = req.body.senderBooks;

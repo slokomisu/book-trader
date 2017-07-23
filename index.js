@@ -39,11 +39,12 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 mongoose.Promise = global.Promise;
-
-mongoose.connect(process.env.MONGOURI, {useMongoClient: true})
+mongoose.connect(process.env.NODE_ENV === 'test' ? process.env.MONGOURI_TEST : process.env.MONGOURI_DEV, {useMongoClient: true})
 
 app.use('/api/', router);
 
-app.listen(3000, () => console.log('EXPRESS STARTED'))
+app.listen(3000)
+
+module.exports = app;
 
 
