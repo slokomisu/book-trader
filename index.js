@@ -39,7 +39,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.NODE_ENV === 'test' ? process.env.MONGOURI_TEST : process.env.MONGOURI_DEV, {useMongoClient: true})
+const mongoUri = process.env.NODE_ENV === 'test' ? process.env.MONGOURI_TEST : process.env.MONGOURI_DEV
+mongoose.connect(mongoUri, {useMongoClient: true})
 
 app.use('/api/', router);
 
