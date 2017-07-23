@@ -1,5 +1,6 @@
 const Book = require('../models/Book');
 const User = require('../models/User');
+const axios = require('axios');
 
 exports.getAllBooks = async function(req, res) {
   try {
@@ -87,10 +88,6 @@ exports.getBookById = async function(req, res) {
   } catch (error) {}
 };
 
-function isBookOwner(user, book) {
-  return book.owner.toString() === user.id;
-}
-
 exports.getBooksForUser = async function(req, res) {
   try {
     const books = await Book.find({ owner: req.params.userId });
@@ -99,3 +96,20 @@ exports.getBooksForUser = async function(req, res) {
     res.json(error);
   }
 };
+
+exports.googleBookSearch = async function(req, res) {
+  const searchTerms = req.body.searchTerms;
+  const searchUrl = `https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&projection=lite&key=${process.env.BOOK_API_KEY}`;
+  try {
+    const books = await axios.get(searchUrl);
+    res.json(books.data);
+  } catch (error) {
+    res.json(error);
+  }
+}
+
+
+function isBookOwner(user, book) {
+  return book.owner.toString() === user.id;
+}
+
