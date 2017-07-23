@@ -96,3 +96,16 @@ exports.closeTrade = async function(req, res) {
     res.json(error);
   }
 };
+
+exports.addExchangeBook = async function(req, res) {
+  try {
+    const book = req.body.book;
+    const foundBook = await Book.findById(book.id);
+    if (!foundBook) {
+      return res.json({error: 'BOOK_NOT_FOUND'});
+    }
+    
+  } catch (error) {
+    
+  }
+}
