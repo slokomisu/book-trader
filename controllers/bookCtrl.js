@@ -1,7 +1,6 @@
 const Book = require('../models/Book');
 const User = require('../models/User');
 
-
 exports.getAllBooks = async function(req, res) {
   try {
     let books = await Book.find({});
@@ -26,10 +25,9 @@ exports.addBook = async function(req, res) {
     newBook.owner = user._id;
     const createdBook = await Book.create(newBook);
     user.books.push(createdBook);
-    const savedUser = await user.save();
+    await user.save();
     res.json({
-      message: 'Book added to user',
-      savedUser
+      createdBook
     });
   } catch (error) {
     res.json({
@@ -51,7 +49,6 @@ exports.updateBook = async function(req, res) {
       Object.assign(bookToUpdate, bookId);
       const savedBook = await bookToUpdate.save();
       res.json({
-        message: 'Book updated',
         savedBook
       });
     }
@@ -69,7 +66,6 @@ exports.deleteBook = async function(req, res) {
     if (isBookOwner(req.user, foundBook)) {
       const deletedBook = await foundBook.remove();
       res.json({
-        message: 'Book deleted',
         deletedBook
       });
     }
@@ -83,16 +79,13 @@ exports.getBookById = async function(req, res) {
   try {
     const foundBook = await Book.findById(bookId);
     if (!foundBook) {
-      return res.json({error: 'BOOK_NOT_FOUND'});
+      return res.json({ error: 'BOOK_NOT_FOUND' });
     }
     res.json({
-      message: 'Book found',
       book: foundBook
     });
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};
 
 function isBookOwner(user, book) {
   return book.owner.toString() === user.id;

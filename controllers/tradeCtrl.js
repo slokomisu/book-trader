@@ -76,7 +76,6 @@ exports.denyTrade = async function(req, res) {
     const tradeId = req.body.tradeId;
     const deniedTrade = await Trade.findByIdAndUpdate(tradeId, { status: 'DENIED' });
     res.json({
-      message: 'Trade denied',
       deniedTrade
     });
   } catch (error) {
@@ -89,7 +88,6 @@ exports.closeTrade = async function(req, res) {
     const tradeId = req.body.tradeId;
     const closedTrade = await Trade.findByIdAndUpdate(tradeId, { status: 'CLOSED' });
     res.json({
-      message: 'Trade closed',
       closedTrade
     });
   } catch (error) {

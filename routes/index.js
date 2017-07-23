@@ -25,7 +25,6 @@ router.put('/books/:id', jwtAuth({secret: process.env.SECRET}), bookCtrl.updateB
 router.delete('/books/:id', jwtAuth({secret: process.env.SECRET}), bookCtrl.deleteBook);
 
 router.post("/login", passport.authenticate("local"), authCtrl.login);
-
 router.post("/register", authCtrl.register);
 
 module.exports = router;
