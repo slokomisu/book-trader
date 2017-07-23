@@ -1,0 +1,6 @@
+{
+    "extends": ["google", "prettier"],
+    "parserOptions": {
+        "ecmaVersion": 8
+    }
+}

@@ -1,8 +1,6 @@
 const router = require('express').Router();
-const Book = require('../models/Book');
 const User = require('../models/User');
 const Trade = require('../models/Trade');
-const jwtAuth = require('express-jwt')
 
 
 

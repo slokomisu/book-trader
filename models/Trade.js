@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const tradeSchema = new mongoose.Schema({
   sender: {
@@ -25,10 +25,9 @@ const tradeSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['OPEN', 'ACCEPTED', 'DENIED'],
+    enum: ['OPEN', 'ACCEPTED', 'DENIED', 'CLOSED'],
     default: 'OPEN'
-  },
-
+  }
 });
 
 const Trade = mongoose.model('Trade', tradeSchema);

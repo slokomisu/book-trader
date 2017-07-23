@@ -1,6 +1,5 @@
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
 exports.login = function(req, res) {
   const user = req.user;
@@ -16,10 +15,8 @@ exports.login = function(req, res) {
 
 exports.register = async function(req, res) {
   try {
-    const newUser = await User.register(
-      new User(req.body.username),
-      req.body.password
-    );
+    const newUser = await User.register(new User(req.body.username), req.body.password);
+    const { _id, username, books } = newUser;
     const payload = {
       id: _id,
       username,
@@ -28,6 +25,6 @@ exports.register = async function(req, res) {
     const token = jwt.sign(payload, process.env.SECRET);
     res.json({ token });
   } catch (error) {
-    res.json({error});
+    res.json({ error });
   }
 };
