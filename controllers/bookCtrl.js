@@ -86,7 +86,7 @@ function isBookOwner(user, book) {
 
 exports.getBooksForUser = async function (req, res) {
   try {
-    const books = Book.find({owner: req.params.id})
+    const books = Book.find({owner: req.params.userId})
     res.json(books);
   } catch (error) {
     res.json(error);
