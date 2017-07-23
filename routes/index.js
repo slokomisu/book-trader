@@ -15,6 +15,7 @@ router.get("/trades/acceptTrade/:id", tradeCtrl.acceptTrade);
 router.get("/trades", tradeCtrl.getTrades);
 router.put("/trades/denyTrade/:id", tradeCtrl.denyTrade);
 router.delete("/trades/closeTrade/:id", tradeCtrl.closeTrade);
+router.post('/trades/addExchangeBook/:id', tradeCtrl.addExchangeBook);
 
 
 router.get('/books', bookCtrl.getAllBooks);
