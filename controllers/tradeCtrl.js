@@ -72,3 +72,18 @@ exports.getTrades = async function(req, res) {
     res.json(error);
   }
 }
+
+exports.denyTrade = async function(req, res) {
+  try {
+    const tradeId = req.body.tradeId;
+    const trade = await Trade.findById(tradeId);
+    trade.status = 'DENIED';
+    const deniedTrade = await trade.save();
+    res.json({
+      message: 'Trade denied',
+      deniedTrade
+    })
+  } catch (error) {
+    res.json(error)
+  }
+}

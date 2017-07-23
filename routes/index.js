@@ -19,7 +19,7 @@ router.use('/trades', jwtAuth({secret: process.env.SECRET}));
 router.post('/trades/createTrade', tradeCtrl.createTrade)
 router.get('/trades/acceptTrade/:id', tradeCtrl.acceptTrade)
 router.get('/trades', tradeCtrl.getTrades);
-// router.put('/trades/denyTrade/:id', tradeCtrl.denyTrade);
+router.put('/trades/denyTrade/:id', tradeCtrl.denyTrade);
 // router.delete('/trades/closeTrade/:id', tradeCtrl.closeTrade);
 
 
