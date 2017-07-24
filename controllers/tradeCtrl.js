@@ -21,7 +21,7 @@ exports.createTrade = async function(req, res) {
       status: 'OPEN'
     };
     const newTrade = await Trade.create(trade);
-    res.json({ trade: newTrade });
+    res.json(newTrade);
   } catch (error) {
     res.json(error);
   }
@@ -52,7 +52,7 @@ exports.acceptTrade = async function(req, res) {
     const savedTrade = await trade.save();
 
     // Send the saved trade back to the frontend
-    res.json({ trade: savedTrade });
+    res.json(savedTrade);
   } catch (error) {
     res.json(error);
   }
@@ -75,9 +75,7 @@ exports.denyTrade = async function(req, res) {
   try {
     const tradeId = req.body.tradeId;
     const deniedTrade = await Trade.findByIdAndUpdate(tradeId, { status: 'DENIED' });
-    res.json({
-      deniedTrade
-    });
+    res.json(deniedTrade);
   } catch (error) {
     res.json(error);
   }
@@ -87,9 +85,7 @@ exports.closeTrade = async function(req, res) {
   try {
     const tradeId = req.body.tradeId;
     const closedTrade = await Trade.findByIdAndUpdate(tradeId, { status: 'CLOSED' });
-    res.json({
-      closedTrade
-    });
+    res.json(closedTrade);
   } catch (error) {
     res.json(error);
   }
@@ -102,8 +98,12 @@ exports.addExchangeBook = async function(req, res) {
     if (!foundBook) {
       return res.json({error: 'BOOK_NOT_FOUND'});
     }
-    
+    const tradeId = req.body.tradeId;
+    const foundTrade = await Trade.findById(tradeId);
+    foundTrade.exchangeBook = foundBook._id;
+    await foundTrade.save();
+    res.json(foundTrade);
   } catch (error) {
-    
+    res.json(error);
   }
 }
