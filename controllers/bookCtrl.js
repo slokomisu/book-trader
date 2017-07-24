@@ -74,7 +74,7 @@ exports.getBookById = async function(req, res) {
     if (!foundBook) {
       return res.json({ error: 'BOOK_NOT_FOUND' });
     }
-    res.json(book);
+    res.json(foundBook);
   } catch (error) {}
 };
 
